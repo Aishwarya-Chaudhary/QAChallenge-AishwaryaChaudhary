@@ -1,15 +1,15 @@
-describe('PokeAPI Berry and Berry Flavor Endpoints', () => {
+describe('PokeAPI Berry and Berry Flavor Endpoints', function() {
     const baseUrl = 'https://pokeapi.co/api/v2/berry';
     const flavorUrl = 'https://pokeapi.co/api/v2/berry-flavor';
 
-    it('Verify get a valid response for a berry by ID', () => {
+    it('Verify get a valid response for a berry by ID', function() {
         cy.request(`${baseUrl}/1`).then((response) => {
             expect(response.status).to.eq(200);
             expect(response.body).to.have.property('name', 'cheri');
         });
     });
 
-    it('Verify get an error for an invalid berry ID', () => {
+    it('Verify get an error for an invalid berry ID', function() {
         cy.request({
             url: `${baseUrl}/99999`,
             failOnStatusCode: false
@@ -18,14 +18,14 @@ describe('PokeAPI Berry and Berry Flavor Endpoints', () => {
         });
     });
 
-    it('Verify get a valid response for a berry by name', () => {
+    it('Verify get a valid response for a berry by name', function() {
         cy.request(`${baseUrl}/cheri`).then((response) => {
             expect(response.status).to.eq(200);
             expect(response.body).to.have.property('id', 1);
         });
     });
 
-    it('Verify get an error for an invalid berry name', () => {
+    it('Verify get an error for an invalid berry name', function() {
         cy.request({
             url: `${baseUrl}/invalidberry`,
             failOnStatusCode: false
@@ -34,14 +34,14 @@ describe('PokeAPI Berry and Berry Flavor Endpoints', () => {
         });
     });
 
-    it('Verify get a valid response for a berry flavor by name', () => {
+    it('Verify get a valid response for a berry flavor by name', function() {
         cy.request(`${flavorUrl}/spicy`).then((response) => {
             expect(response.status).to.eq(200);
             expect(response.body).to.have.property('name', 'spicy');
         });
     });
 
-    it('Verify get the berry with the highest potency for spicy flavor', () => {
+    it('Verify get the berry with the highest potency for spicy flavor', function() {
         cy.request(`${flavorUrl}/spicy`).then((response) => {
             expect(response.status).to.eq(200);
             const berries = response.body.berries;
